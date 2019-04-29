@@ -3,7 +3,7 @@
 namespace MifuminLib\SearchPhraseParser;
 
 /**
- * SearchPhraseParser
+ * \MifuminLib\SearchPhraseParser\Parser
  *
  * OR検索や括弧などを含む検索ワードを分割します。
  */
@@ -55,7 +55,7 @@ class Parser
             [
                 'symbol' => 'PHRASE',
                 'pattern' => '"(([^"]*("")?)*)"',
-                'exec' => ['SearchPhraseParser', 'QuotedPhrase'],
+                'exec' => [self::class, 'QuotedPhrase'],
             ],
             [
                 'symbol' => 'PHRASE',
