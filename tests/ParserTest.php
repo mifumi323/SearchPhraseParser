@@ -8,7 +8,6 @@ class ParserTest extends \PHPUnit\Framework\TestCase
 {
     public function testParseToArray()
     {
-        error_reporting(E_ALL & ~E_NOTICE);
         $actual = Parser::ParseToArray('aaa bbb OR (ccc "ddd eee")');
         $expected = [
             'type' => 'AND',

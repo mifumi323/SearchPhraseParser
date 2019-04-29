@@ -73,9 +73,10 @@ class Parser
                 $pattern = '/^(?:'.$val['pattern'].')/'.($ignorecase ? 'iu' : 'u');
                 if (preg_match($pattern, $str, $matches)) {
                     if ($val['symbol'] !== '') {
+                        $exec = $val['exec'] ?? false;
                         $lex[] = [
                             'symbol' => $val['symbol'],
-                            'value' => $val['exec'] ? call_user_func($val['exec'], $matches) : $matches[0],
+                            'value' => $exec ? call_user_func($exec, $matches) : $matches[0],
                         ];
                     }
                     $str = mb_substr($str, mb_strlen($matches[0]));
@@ -123,7 +124,7 @@ class Parser
         while (is_array($exp2 = self::EXP2($symbols, $next))) {
             $values[] = $exp2;
             $next = $exp2['next'];
-            if ($symbols[$next]['symbol'] !== 'OR') {
+            if (!isset($symbols[$next]) || $symbols[$next]['symbol'] !== 'OR') {
                 break;
             }
             ++$next;
@@ -150,7 +151,7 @@ class Parser
         while (is_array($exp3 = self::EXP3($symbols, $next))) {
             $values[] = $exp3;
             $next = $exp3['next'];
-            if ($symbols[$next]['symbol'] !== 'AND') {
+            if (!isset($symbols[$next]) || $symbols[$next]['symbol'] !== 'AND') {
                 break;
             }
             ++$next;
@@ -174,7 +175,7 @@ class Parser
     private static function EXP3($symbols, $next)
     {
         $values = [];
-        if ($symbols[$next]['symbol'] === 'NOT') {
+        if (isset($symbols[$next]) && $symbols[$next]['symbol'] === 'NOT') {
             ++$next;
             $exp4 = self::EXP4($symbols, $next);
             if (!is_array($exp4)) {
@@ -210,7 +211,7 @@ class Parser
     private static function EXP4($symbols, $next)
     {
         $values = [];
-        if ($symbols[$next]['symbol'] === 'PHRASE') {
+        if (isset($symbols[$next]) && $symbols[$next]['symbol'] === 'PHRASE') {
             $values[] = $symbols[$next];
             ++$next;
 
@@ -220,7 +221,7 @@ class Parser
                 'next' => $next,
                 'value' => $values,
             ];
-        } elseif ($symbols[$next]['symbol'] === 'BRST') {
+        } elseif (isset($symbols[$next]) && $symbols[$next]['symbol'] === 'BRST') {
             ++$next;
             $exp0 = self::EXP0($symbols, $next);
             if (!is_array($exp0)) {
