@@ -1,0 +1,18 @@
+{
+    "name": "mifumi323/search-phrase-parser",
+    "description": "Parse search words",
+    "version": "1.1.0",
+    "type": "library",
+    "homepage": "https://tgws.plus/dl/searchphraseparser/",
+    "readme": "README.md",
+    "require-dev": {
+        "phpunit/phpunit": "^8.1"
+    },
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "mifumi323",
+            "email": "mifumi323@gmail.com"
+        }
+    ]
+}
