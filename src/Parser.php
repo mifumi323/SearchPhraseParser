@@ -1,18 +1,24 @@
 <?php
-// SearchPhraseParser v1.1.0
-//  OR検索や括弧などを含む検索ワードを分割
-//  PHP5以降に対応
-//  http://tgws.fromc.jp/dl/searchphraseparser/
-//
-// 1.0.1 例とインデント修正。動作は一切変更なし。
-// 1.1.0 大文字小文字を区別するかどうかを選択制に。
 
-class SearchPhraseParser {
-    // このメソッドを呼び出せばいいよ！
-    //  例：$ret = SearchPhraseParser::Parse('aaa bbb OR (ccc "ddd eee")');
-    //  戻り値はツリー状の配列だから再帰処理で頑張ればなんとかなると思うよ！
-    //  エラーがあったらエラーが起きないところまで解析するよ！
-    public static function Parse($string, $ignorecase = true)
+namespace MifuminLib\SearchPhraseParser;
+
+/**
+ * SearchPhraseParser
+ * 
+ * OR検索や括弧などを含む検索ワードを分割します。
+ */
+class Parser {
+    /**
+     * 配列形式に解析します。
+     *  例：$ret = Parser::ParseToArray('aaa bbb OR (ccc "ddd eee")');
+     * 
+     * エラーがあった場合、エラーが起きない部分までを解析します。
+     *
+     * @param string $string
+     * @param boolean $ignorecase
+     * @return array 解析結果のツリー状の配列
+     */
+    public static function ParseToArray($string, $ignorecase = true): array
     {
         $symbols = self::Analyze($string, $ignorecase);
         $tree = self::EXP0($symbols, 0);
