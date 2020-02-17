@@ -24,7 +24,7 @@ class Parser
         $symbols = self::Analyze($string, $ignorecase);
         $tree = self::EXP0($symbols, 0);
 
-        return self::OptimizeTree($tree);
+        return self::OptimizeTree($tree) ?? [];
     }
 
     // 字句解析
@@ -129,7 +129,7 @@ class Parser
             }
             ++$next;
         }
-        if ($symbols[$next - 1]['symbol'] === 'OR') {
+        if ($next > 0 && $symbols[$next - 1]['symbol'] === 'OR') {
             --$next;
         }
         if (count($values) === 0) {
@@ -156,7 +156,7 @@ class Parser
             }
             ++$next;
         }
-        if ($symbols[$next - 1]['symbol'] === 'AND') {
+        if ($next > 0 && $symbols[$next - 1]['symbol'] === 'AND') {
             --$next;
         }
         if (count($values) === 0) {
