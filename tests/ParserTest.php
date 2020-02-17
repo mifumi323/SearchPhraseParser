@@ -42,4 +42,18 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         ];
         Assert::assertSame($expected, $actual);
     }
+
+    public function testParseToArrayOpenBranket()
+    {
+        $actual = Parser::ParseToArray('(');
+        $expected = [];
+        Assert::assertSame($expected, $actual);
+    }
+
+    public function testParseToArrayCloseBranket()
+    {
+        $actual = Parser::ParseToArray(')');
+        $expected = [];
+        Assert::assertSame($expected, $actual);
+    }
 }
