@@ -56,4 +56,14 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         $expected = [];
         Assert::assertSame($expected, $actual);
     }
+
+    public function testParseToArrayInvalidBranket()
+    {
+        $actual = Parser::ParseToArray('fff )(');
+        $expected = [
+            'type' => 'VALUE',
+            'value' => 'fff',
+        ];
+        Assert::assertSame($expected, $actual);
+    }
 }
