@@ -8,7 +8,7 @@ class ParserTest extends \PHPUnit\Framework\TestCase
 {
     public function testParseToArray()
     {
-        $actual = Parser::ParseToArray('aaa bbb OR (ccc "ddd eee")');
+        $actual = Parser::ParseToArray('aaa NOT bbb OR (ccc "ddd eee")');
         $expected = [
             'type' => 'AND',
             'value' => [
@@ -20,8 +20,13 @@ class ParserTest extends \PHPUnit\Framework\TestCase
                     'type' => 'OR',
                     'value' => [
                         [
-                            'type' => 'VALUE',
-                            'value' => 'bbb',
+                            'type' => 'NOT',
+                            'value' => [
+                                [
+                                    'type' => 'VALUE',
+                                    'value' => 'bbb',
+                                ],
+                            ],
                         ],
                         [
                             'type' => 'AND',
@@ -64,6 +69,23 @@ class ParserTest extends \PHPUnit\Framework\TestCase
             'type' => 'VALUE',
             'value' => 'fff',
         ];
+        Assert::assertSame($expected, $actual);
+    }
+
+    public function testParseToArrayQuotedQuote()
+    {
+        $actual = Parser::ParseToArray('"aaa""bbb"');
+        $expected = [
+            'type' => 'VALUE',
+            'value' => 'aaa"bbb',
+        ];
+        Assert::assertSame($expected, $actual);
+    }
+
+    public function testParseToArrayEmpty()
+    {
+        $actual = Parser::ParseToArray('');
+        $expected = [];
         Assert::assertSame($expected, $actual);
     }
 }
