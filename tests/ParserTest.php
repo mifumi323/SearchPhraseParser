@@ -88,4 +88,33 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         $expected = [];
         Assert::assertSame($expected, $actual);
     }
+
+    public function testParseToArrayOrWithoutLeftValue()
+    {
+        // 実際に来たSQLインジェクション試行のリクエスト
+        // これを防ぐのは当ライブラリの責任範囲ではないため、普通にパースを試みる(初手ORなのでどのみち失敗に終わる)
+        $actual = Parser::ParseToArray(' or (1,2)=(select*from(select name_const(CHAR(108,79,100,111,120,85,77,85,114,116),1),name_const(CHAR(108,79,100,111,120,85,77,85,114,116),1))a) -- and 1=1');
+        $expected = [];
+        Assert::assertSame($expected, $actual);
+    }
+
+    public function testParseToArrayContinuousAndOr()
+    {
+        $actual = Parser::ParseToArray('a and or b');
+        $expected = [
+            'type' => 'VALUE',
+            'value' => 'a',
+        ];
+        Assert::assertSame($expected, $actual);
+    }
+
+    public function testParseToArrayOpenBranketAndCharacter()
+    {
+        $actual = Parser::ParseToArray('t0b@5d@(y ');
+        $expected = [
+            'type' => 'VALUE',
+            'value' => 't0b@5d@',
+        ];
+        Assert::assertSame($expected, $actual);
+    }
 }
