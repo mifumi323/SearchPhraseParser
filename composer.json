@@ -1,7 +1,7 @@
 {
     "name": "mifumi323/search-phrase-parser",
     "description": "Parse search words",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "type": "library",
     "homepage": "https://tgws.plus/dl/searchphraseparser/",
     "readme": "README.md",
