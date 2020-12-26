@@ -229,7 +229,7 @@ class Parser
             }
             $values[] = $exp0;
             $next = $exp0['next'];
-            if ($symbols[$next]['symbol'] !== 'BREN') {
+            if (!isset($symbols[$next]) || $symbols[$next]['symbol'] !== 'BREN') {
                 return null;
             }
             ++$next;
