@@ -1,6 +1,6 @@
 <?php
 
-namespace MifuminLib\SearchPhraseParser;
+namespace Mifumi323\SearchPhraseParser;
 
 use PHPUnit\Framework\Assert;
 

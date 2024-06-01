@@ -1,9 +1,9 @@
 <?php
 
-namespace MifuminLib\SearchPhraseParser;
+namespace Mifumi323\SearchPhraseParser;
 
 /**
- * \MifuminLib\SearchPhraseParser\Parser
+ * \Mifumi323\SearchPhraseParser\Parser
  *
  * OR検索や括弧などを含む検索ワードを分割します。
  */
