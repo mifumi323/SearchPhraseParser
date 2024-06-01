@@ -13,7 +13,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Mifumi323\\SearchPhraseParser\\": "src"
+            "Mifumi323\\SearchPhraseParser\\": "src",
+            "MifuminLib\\SearchPhraseParser\\": "old"
         }
     },
     "license": "Apache-2.0",
